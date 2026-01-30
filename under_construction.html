@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>施工中 - vPLAAF 虚拟中国空军</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* 施工页面专用样式 */
+    .construction-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 80vh;
+      padding: 2rem;
+      text-align: center;
+    }
+    
+    .construction-icon {
+      font-size: 6rem;
+      margin-bottom: 2rem;
+      animation: bounce 2s infinite;
+    }
+    
+    .construction-title {
+      font-size: 3rem;
+      color: #0a2342;
+      margin-bottom: 1.5rem;
+      position: relative;
+      padding-bottom: 1rem;
+    }
+    
+    .construction-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 4px;
+      background-color: #c9a227;
+    }
+    
+    .construction-subtitle {
+      font-size: 1.5rem;
+      color: #1a3a5f;
+      margin-bottom: 2rem;
+      max-width: 800px;
+      line-height: 1.6;
+    }
+    
+    .construction-progress {
+      width: 100%;
+      max-width: 600px;
+      margin: 2rem auto;
+    }
+    
+    .progress-bar {
+      width: 100%;
+      height: 20px;
+      background-color: #e6e9ed;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 1rem;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #c9a227, #e6c158);
+      width: 65%;
+      border-radius: 10px;
+      position: relative;
+      animation: progress 2s ease-in-out infinite alternate;
+    }
+    
+    .progress-text {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1rem;
+      color: #1a3a5f;
+      margin-bottom: 3rem;
+    }
+    
+    .construction-info {
+      background-color: rgba(10, 35, 66, 0.05);
+      padding: 2rem;
+      border-radius: 8px;
+      max-width: 600px;
+      margin: 2rem auto;
+      text-align: left;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .construction-info h3 {
+      color: #0a2342;
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .construction-info ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+    
+    .construction-info li {
+      margin-bottom: 0.8rem;
+      padding-left: 1.5rem;
+      position: relative;
+      line-height: 1.5;
+    }
+    
+    .construction-info li::before {
+      content: "•";
+      color: #c9a227;
+      font-size: 1.5rem;
+      position: absolute;
+      left: 0;
+      top: -2px;
+    }
+    
+    .construction-actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    .construction-btn {
+      display: inline-block;
+      padding: 0.8rem 1.8rem;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    
+    .construction-btn.primary {
+      background-color: #12b886;
+      color: white;
+      box-shadow: 0 4px 12px rgba(18, 184, 134, 0.3);
+    }
+    
+    .construction-btn.primary:hover {
+      background-color: #0fa87a;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(18, 184, 134, 0.4);
+    }
+    
+    .construction-btn.secondary {
+      background-color: rgba(10, 35, 66, 0.1);
+      color: #0a2342;
+      border: 2px solid #0a2342;
+    }
+    
+    .construction-btn.secondary:hover {
+      background-color: rgba(10, 35, 66, 0.2);
+      transform: translateY(-2px);
+    }
+    
+    /* 动画效果 */
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+    
+    @keyframes progress {
+      0% {
+        width: 65%;
+      }
+      100% {
+        width: 70%;
+      }
+    }
+    
+    @keyframes blink {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.5;
+      }
+    }
+    
+    .blink {
+      animation: blink 1.5s infinite;
+    }
+    
+    /* 响应式设计 */
+    @media (max-width: 768px) {
+      .construction-title {
+        font-size: 2.2rem;
+      }
+      
+      .construction-subtitle {
+        font-size: 1.2rem;
+      }
+      
+      .construction-icon {
+        font-size: 4.5rem;
+      }
+      
+      .construction-actions {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .construction-btn {
+        width: 100%;
+        max-width: 300px;
+        text-align: center;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .construction-title {
+        font-size: 1.8rem;
+      }
+      
+      .construction-subtitle {
+        font-size: 1rem;
+      }
+      
+      .construction-icon {
+        font-size: 3.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+<header>
+  <div class="nav"> 
+    <div class="nav-left">
+      vPLAAF 虚拟中国空军
+    </div>
+    <div class="nav-right">
+      <a href="index.html">返回主页</a>
+      <!-- <a href="https://qm.qq.com/q/cQI7AV3d3q" target="_blank" class="nav-qq-btn" rel="noopener noreferrer">QQ群</a> -->
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="construction-container">
+    <div class="construction-icon">🚧</div>
+    
+    <h1 class="construction-title zh">网站正在施工中</h1>
+    
+    <p class="construction-subtitle zh">
+      我们正在努力建设一个更好的vPLAAF虚拟中国空军网站，为您带来更丰富的模拟飞行体验。
+      请耐心等待，精彩内容即将上线！
+    </p>
+    
+    <div class="construction-progress">
+      <div class="progress-bar">
+        <div class="progress-fill"></div>
+      </div>
+      <div class="progress-text">
+        <span>施工进度</span>
+        <span class="blink">65%</span>
+      </div>
+    </div>
+    
+    <div class="construction-info">
+      <h3>📋 施工期间您可以：</h3>
+      <ul>
+        <li class="zh">加入我们的QQ群，与其他飞行爱好者交流</li>
+        <li class="zh">通过现有渠道了解vPLAAF的最新动态</li>
+        <li class="zh">访问我们的训练资料库（建设中）</li>
+        <li class="zh">参与我们每周的模拟飞行活动</li>
+      </ul>
+    </div>
+    
+    <div class="construction-actions">
+      <a href="https://qm.qq.com/q/cQI7AV3d3q" target="_blank" class="construction-btn primary" rel="noopener noreferrer">
+        <span>加入QQ群</span>
+      </a>
+      
+      <a href="index.html" class="construction-btn secondary">
+        <span>返回主页</span>
+      </a>
+    </div>
+    
+    <div style="margin-top: 3rem; font-size: 0.9rem; color: #8c9ba5;">
+      <p class="zh blink">预计完工时间：2024年12月</p>
+    </div>
+  </div>
+</main>
+
+<footer>
+  © 2026 vPLAAF 虚拟中国空军<br>
+  本组织为完全虚构，仅用于飞行模拟，不代表任何现实军事单位或立场。<br>
+  <br>
+</footer>
+
+</body>
+</html>
